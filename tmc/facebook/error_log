@@ -1,0 +1,1 @@
+[01-May-2017 01:29:56 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home2/ferky/public_html/ferkungamaboobo.com/wp-content/plugins/tmc/facebook/facebook.php on line 29
