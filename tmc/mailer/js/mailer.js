@@ -46,7 +46,6 @@ function addAreas(paramForm) {
 function addTrack(paramForm) {
 	var formName = paramForm.getAttribute('id')+'-form';
 	var formElement = document.getElementById(formName);
-	
 	var ga_source = '';
 	var ga_campaign = '';
 	var ga_medium = '';
@@ -57,26 +56,29 @@ function addTrack(paramForm) {
 	var hiddenMedium = '';
 	var hiddenKeywrd = '';
 	var c_name = "__utmz";
+	var i = '';
+	var c_end = '';
 	if (document.cookie.length>0){
 		var c_start = document.cookie.indexOf(c_name + "=");
 		if (c_start!=-1){
 			c_start=c_start + c_name.length+1;
 			c_end=document.cookie.indexOf(";",c_start);
 			if (c_end==-1) c_end=document.cookie.length;
-			gc = unescape(document.cookie.substring(c_start,c_end));
+			gc = decodeURI(document.cookie.substring(c_start,c_end));
 		}
 	}
-	if(gc != ""){
+	if(gc != "" && gc != undefined ){
+		console.log('std')
 		var z = gc.split('.'); 
+		var y = gc.split('utm');
 		if(z.length >= 4){
-		var y = z[4].split('|');
 			for(i=0; i<y.length; i++){
-				if(y[i].indexOf('utmcsr=') >= 0) ga_source = y[i].substring(y[i].indexOf('=')+1);
-				if(y[i].indexOf('utmccn=') >= 0) ga_campaign = y[i].substring(y[i].indexOf('=')+1);
-				if(y[i].indexOf('utmcmd=') >= 0) ga_medium = y[i].substring(y[i].indexOf('=')+1);
-				if(y[i].indexOf('utmctr=') >= 0) ga_term = y[i].substring(y[i].indexOf('=')+1);
-				if(y[i].indexOf('utmcct=') >= 0) ga_content = y[i].substring(y[i].indexOf('=')+1);
-				if(y[i].indexOf('utmgclid=') >= 0) {
+				if(y[i].indexOf('csr=') >= 0) ga_source = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+				if(y[i].indexOf('ccn=') >= 0) ga_campaign = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+				if(y[i].indexOf('cmd=') >= 0) ga_medium = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+				if(y[i].indexOf('ctr=') >= 0) ga_term = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+				if(y[i].indexOf('cct=') >= 0) ga_content = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+				if(y[i].indexOf('gclid=') >= 0) {
 					ga_source = 'google';
 					ga_medium = 'cpc';
 				}
@@ -84,111 +86,88 @@ function addTrack(paramForm) {
 		}
 		if(ga_source.length > 0) {
 		var hiddenSource = '<input type="hidden" name="source" value="'+ga_source+'" />';
-		};
+		}
 		if(ga_medium.length > 0) {
 			var hiddenMedium = '<input type="hidden" name="medium" value="'+ga_medium+'" />';
-		};
+		}
 		if(ga_term.length > 0) {
 			var hiddenKeywrd = '<input type="hidden" name="keyword" value="'+ga_term+'" />';
-		};
-			var totalHidden = hiddenSource+hiddenMedium+hiddenKeywrd;
-		console.log(totalHidden);
+		}
+		var totalHidden = hiddenSource+hiddenMedium+hiddenKeywrd;
 		formElement.insertAdjacentHTML('beforeend',totalHidden);
 	}
-	else if(gc == "") {
-		console.log('testworked')
+	else if(gc == "" || gc === undefined ) {
+		console.log('ajax')
 		//do something to get the utmz on first pageload
 		$.ajax({
 			url: ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js',
 			dataType: "script",
 			cache: true,
 			success: function() {
+				var ga_source = '';
+				var ga_campaign = '';
+				var ga_medium = '';
+				var ga_term = '';
+				var ga_content = '';
+				var gd = '';
+				var hiddenSource = '';
+				var hiddenMedium = '';
+				var hiddenKeywrd = '';
+				var c_name = "__utmz";
+				var i = '';
+				var c_end = '';
 				if (document.cookie.length>0){
 					var c_start = document.cookie.indexOf(c_name + "=");
 					if (c_start!=-1){
 						c_start=c_start + c_name.length+1;
 						c_end=document.cookie.indexOf(";",c_start);
 						if (c_end==-1) c_end=document.cookie.length;
-						gd = unescape(document.cookie.substring(c_start,c_end));
+						gd = decodeURI(document.cookie.substring(c_start,c_end));
 					}
 				}
 				if(gd != ""){
 					var z = gd.split('.'); 
+					var y = gd.split('utm');
 					if(z.length >= 4){
-					var y = z[4].split('|');
 						for(i=0; i<y.length; i++){
-							if(y[i].indexOf('utmcsr=') >= 0) ga_source = y[i].substring(y[i].indexOf('=')+1);
-							if(y[i].indexOf('utmccn=') >= 0) ga_campaign = y[i].substring(y[i].indexOf('=')+1);
-							if(y[i].indexOf('utmcmd=') >= 0) ga_medium = y[i].substring(y[i].indexOf('=')+1);
-							if(y[i].indexOf('utmctr=') >= 0) ga_term = y[i].substring(y[i].indexOf('=')+1);
-							if(y[i].indexOf('utmcct=') >= 0) ga_content = y[i].substring(y[i].indexOf('=')+1);
-							if(y[i].indexOf('utmgclid=') >= 0) {
+							if(y[i].indexOf('csr=') >= 0) ga_source = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+							if(y[i].indexOf('ccn=') >= 0) ga_campaign = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+							if(y[i].indexOf('cmd=') >= 0) ga_medium = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+							if(y[i].indexOf('ctr=') >= 0) ga_term = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+							if(y[i].indexOf('cct=') >= 0) ga_content = y[i].substring(y[i].indexOf('=')+1).replace('|','');
+							if(y[i].indexOf('gclid=') >= 0) {
 								ga_source = 'google';
 								ga_medium = 'cpc';
 							}
 						}
 					}
-					if(ga_source.length > 0) {
-					var hiddenSource = '<input type="hidden" name="source" value="'+ga_source+'" />';
-					};
-					if(ga_medium.length > 0) {
+					if(ga_source.length > 0 && ga_source != '') {
+						var hiddenSource = '<input type="hidden" name="source" value="'+ga_source+'" />';
+					}
+					if(ga_medium.length > 0 && ga_medium != '') {
 						var hiddenMedium = '<input type="hidden" name="medium" value="'+ga_medium+'" />';
-					};
-					if(ga_term.length > 0) {
+					}
+					if(ga_term.length > 0 && ga_term != '') {
 						var hiddenKeywrd = '<input type="hidden" name="keyword" value="'+ga_term+'" />';
-					};
-						var totalHidden = hiddenSource+hiddenMedium+hiddenKeywrd;
-					console.log(totalHidden);
+					}
+					var totalHidden = hiddenSource+hiddenMedium+hiddenKeywrd;
 					formElement.insertAdjacentHTML('beforeend',totalHidden);
 				}
 			}
 		});
-	}	
-	/*$.ajax({
-		url: ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js',
-		dataType: "script",
-		cache: true,
-		success: function() {
-			var utmz = document.cookie.split('utmz')[1].split(';')[0];
-			console.log(utmz);
-			var hiddenSource = '';
-			var hiddenMedium = '';
-			var hiddenKeywrd = '';
-			if(utmz.split('utmcsr=')[1] != undefined) {
-				var source = utmz.split('utmcsr=')[1].split('|')[0].replace('%20',' ');
-				var hiddenSource = '<input type="hidden" name="source" value="'+source+'" />';
-			};
-			if(utmz.split('utmcmd=')[1] != undefined) {
-				var medium = utmz.split('utmcmd=')[1].split('|')[0].replace('%20',' ');
-				var hiddenMedium = '<input type="hidden" name="medium" value="'+medium+'" />';
-			};
-			if(utmz.split('utmctr=')[1] != undefined) {
-				var keywrd = utmz.split('utmctr=')[1].split('|')[0].replace('%20',' ');
-				var hiddenKeyword = '<input type="hidden" name="keyword" value="'+keywrd+'" />';
-			};
-			if(utmz.split('gclid=')[1] != undefined) {
-				var source = 'google';
-				var medium = 'cpc';
-				var hiddenSource = '<input type="hidden" name="source" value="'+source+'" />';
-				var hiddenMedium = '<input type="hidden" name="medium" value="'+medium+'" />';
-			};
-			var totalHidden = hiddenSource+hiddenMedium+hiddenKeywrd;
-			console.log(totalHidden);
-			formElement.insertAdjacentHTML('beforeend',totalHidden);
-		}
-	});*/
+	}
 }
 if (document.body.contains(miniform)) {
 	makeForm(miniform);
 	addInputs(miniform);
 	addAreas(miniform);
-	addTrack(miniform)
+	addTrack(miniform);
 }
 if (document.body.contains(mainform)) {
 	makeForm(mainform);
 	addInputs(mainform);
 	addAreas(mainform);
-	addTrack(mainform)
+	addTrack(mainform);
 }
 $.validator.addMethod("phoneUS", function(phone_number, element) {
 	phone_number = phone_number.replace(/\s+/g, "");
