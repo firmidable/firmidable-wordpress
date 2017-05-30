@@ -114,9 +114,9 @@ function firmidable_register_settings(){
     add_settings_field( 'mailer_smtpport_field', 'SMTP Port', 'mailer_smtpport_input', 'firmidable_mailer', 'mailer_smtp' );
     add_settings_field( 'mailer_smtpuser_field', 'SMTP User', 'mailer_smtpuser_input', 'firmidable_mailer', 'mailer_smtp' );
     add_settings_field( 'mailer_smtppass_field', 'SMTP Password', 'mailer_smtppass_input', 'firmidable_mailer', 'mailer_smtp' );
-    add_settings_field( 'mailer_smtpsecurity_field', 'SMTP Security', 'mailer_smtpsecurity_input', 'metadata_options', 'mailer_smtp' );
-    add_settings_field( 'mailer_smtpfrom_field', 'SMTP From Email', 'mailer_smtpfrom_input', 'metadata_options', 'mailer_smtp' );
-    add_settings_field( 'mailer_smtpname_field', 'SMTP From Name', 'mailer_smtpname_input', 'metadata_options', 'mailer_smtp' );
+    add_settings_field( 'mailer_smtpsecurity_field', 'SMTP Security', 'mailer_smtpsecurity_input', 'firmidable_mailer', 'mailer_smtp' );
+    add_settings_field( 'mailer_smtpfrom_field', 'SMTP From Email', 'mailer_smtpfrom_input', 'firmidable_mailer', 'mailer_smtp' );
+    add_settings_field( 'mailer_smtpname_field', 'SMTP From Name', 'mailer_smtpname_input', 'firmidable_mailer', 'mailer_smtp' );
     add_settings_section( 'mailer_database', 'Mailer Database Settings', 'mailer_database_infotext', 'firmidable_mailer' );
     add_settings_field( 'mailer_database_field', 'Store Form Submissions', 'mailer_database_input', 'firmidable_mailer', 'mailer_database' );
     add_settings_field( 'mailer_database_fields', 'Database Fields', 'mailer_database_fields_input', 'firmidable_mailer', 'mailer_database' );
@@ -415,4 +415,9 @@ if($tmc_use_seo_meta === '1') { require 'metadata/seo_meta.php'; }
 if($tmc_use_fb_og === '1') { require 'metadata/fb_og.php'; }
 if($tmc_use_twitter_card === '1') { require 'metadata/twitter_card.php'; }
 if($tmc_use_ab_tester === '1') { require 'ab-tester/ab.php'; }
+function database_display_css($hook) {
+	$get_hook = $hook;
+	if($get_hook === 'toplevel_page_database') { wp_enqueue_style('database_table_display',plugins_url( 'tmc/mailer/css/database_display.css', dirname(__FILE__) )); }
+}
+add_action( 'admin_enqueue_scripts', 'database_display_css');
 ?>
