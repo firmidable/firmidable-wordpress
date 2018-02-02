@@ -35,6 +35,12 @@ function firm_keyword_title() {
 			$title['site'] = get_bloginfo('name');
 			$title['tagline'] = get_bloginfo('description');
 		}
+		elseif ( is_author() ) {
+			$title['title'] = 'Articles By '.get_the_author_meta('display_name');
+		}
+		elseif ( is_archive() ){ 
+			$title['title'] = get_the_archive_title();
+		}
 		else {
 			$title['title'] =  get_the_title($firm_post_id);
 		}
