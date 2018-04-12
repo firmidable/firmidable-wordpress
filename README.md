@@ -1,4 +1,5 @@
 === Firmidable Plugin ===
+
 Contributors: ferkungamabooboo
 Tags: seo, site speed, metadata, forms, lead tracking, analytics, a/b testing, social code
 Requires at least: 4.7
@@ -11,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 An extendable plugin to help development of WordPress sites for Firmidable. This inclues SEO, lead tracking, forms, SMTP, and analytics.
 
 == Description ==
+
 This is a plugin to help the team at [Firmidable](https://firmidable.com/) to help with various tasks. Without changes, it can do the following:
 * Load jQuery from the official CDN, with an SHA check
 * Clean out unneeded code from the header
