@@ -49,13 +49,13 @@ Take a look at the current feature
 
 ### What is in the pipeline to be created, fixed, or changed in the main plugin files? 
 
-Check the (GitHub Issues)[https://github.com/ferkungamaboobo/firmidable-wordpress/issues] for the plugin to see if it's being addressed. Feel free to add to the issues or make a pull request to work on it yourself!
+Check the [GitHub Issues](https://github.com/firmidable/firmidable-wordpress/issues) for the plugin to see if it's being addressed. Feel free to add to the issues or make a pull request to work on it yourself!
 
 ### Where would I learn about a given feature?
-Check the (GitHub Wiki)[https://github.com/ferkungamaboobo/firmidable-wordpress/wiki] for the plugin.
+Check the [GitHub Wiki](https://github.com/firmidable/firmidable-wordpress/wiki) for the plugin.
 
 ## Changelog
-The full changelog without version numbers can be seen at the (GitHub History)[https://github.com/ferkungamaboobo/firmidable-wordpress/commits/master/tmc] for the plugin.
+The full changelog without version numbers can be seen at the [GitHub History](https://github.com/firmidable/firmidable-wordpress/commits/master/tmc) for the plugin.
 
 
 
